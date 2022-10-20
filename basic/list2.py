@@ -42,10 +42,12 @@ def linear_merge(list1, list2):
             list3.append(list2[j])
             j += 1
     if i > length1:
-        list3.append(list2[*j:])
+        # use spread operator to debundle lists
+        list3 = [*list3, *list2[j:]]
+        # list3.append([*list2[j:]])
     else:
-        list3.append(list1[*i:])
-    # iterate until any llist is empty, if l1E append l2, if l2E append l1
+        list3 = [*list3, *list1[i:]]
+        # list3.append([*list1[i:]])
     return list3
 
 
