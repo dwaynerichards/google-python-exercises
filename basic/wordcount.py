@@ -22,6 +22,7 @@ Print the above list in order sorted by word (python will sort punctuation to
 come before letters -- that's fine). Store all the words as lowercase,
 so 'The' and 'the' count as the same word.
 
+
 2. For the --topcount flag, implement a print_top(filename) which is similar
 to print_words() but which prints just the top 20 most common words sorted
 so the most common word is first, then the next most common, and so on.
@@ -36,8 +37,49 @@ Optional: define a helper function to avoid code duplication inside
 print_words() and print_top().
 
 """
-
 import sys
+
+
+def print_top(filename):
+    word_count = word_Count(filename)
+    # sort by second item in tuple
+    # copy last 20, reverse
+    sorted_Tuples = sorted(word_count.items(), key=back_Tuple)
+    descending_Tuples = sorted_Tuples[-20:]
+    descending_Tuples.reverse()
+    for k, v in descending_Tuples:
+        print(k, v)
+
+
+def print_words(filename):
+    word_count = word_Count(filename)
+    sorted_list = sorted(word_count.keys())
+    for word in sorted_list:
+        print(word, word_count[word])
+
+
+def front_Tuple(t):
+    return t[0]
+
+
+def back_Tuple(t):
+    return t[1]
+
+
+def word_Count(filename):
+    file = open(filename, "r")
+    text = file.read()
+    file.close()
+    words = text.split(" ")
+    word_count = {}
+    for word in words:
+        word = word.lower()
+        if word not in word_count:
+            word_count[word] = 1
+        else:
+            word_count[word] += 1
+    return word_count
+
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
@@ -50,19 +92,20 @@ import sys
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
-  if len(sys.argv) != 3:
-    print 'usage: ./wordcount.py {--count | --topcount} file'
-    sys.exit(1)
+    if len(sys.argv) != 3:
+        print("usage: ./wordcount.py {--count | --topcount} file")
+        sys.exit(1)
 
-  option = sys.argv[1]
-  filename = sys.argv[2]
-  if option == '--count':
-    print_words(filename)
-  elif option == '--topcount':
-    print_top(filename)
-  else:
-    print 'unknown option: ' + option
-    sys.exit(1)
+    option = sys.argv[1]
+    filename = sys.argv[2]
+    if option == "--count":
+        print_words(filename)
+    elif option == "--topcount":
+        print_top(filename)
+    else:
+        print("unknown option: " + option)
+        sys.exit(1)
 
-if __name__ == '__main__':
-  main()
+
+if __name__ == "__main__":
+    main()

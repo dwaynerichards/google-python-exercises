@@ -1,4 +1,5 @@
 #!/usr/bin/python -tt
+
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -46,26 +47,44 @@ import sys
 
 
 def mimic_dict(filename):
-  """Returns mimic dict mapping each word to list of words which follow it."""
-  # +++your code here+++
-  return
+    """Returns mimic dict mapping each word to list of words which follow it."""
+    mimic = {}
+    file = open(filename, "r")
+    # lines is list of lines
+    lines = file.readlines()
+    # step through each line, adding value being procces as key, next value, pushed into arr
+    for line in lines:
+        line = line.split(" ")
+        i, lgth = 0, (len(line) - 1)
+        while i < lgth:
+            word = line[i]
+            if word in mimic:
+                next_index = line[i + 1]
+                mimic[word].append(next_index)
+            else:
+                line[i] = list(word)
+            i += 1
+    return mimic
 
 
 def print_mimic(mimic_dict, word):
-  """Given mimic dict and start word, prints 200 random words."""
-  # +++your code here+++
-  return
+    """Given mimic dict and start word, prints 200 random words."""
+    # +++your code here+++
+    list = mimic_dict[word]
+    random_list = random.choices(list, None, None, 200)
+    for words in random_list:
+        print(word)
 
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
-  if len(sys.argv) != 2:
-    print 'usage: ./mimic.py file-to-read'
-    sys.exit(1)
+    if len(sys.argv) != 2:
+        print("usage: ./mimic.py file-to-read")
+        sys.exit(1)
 
-  dict = mimic_dict(sys.argv[1])
-  print_mimic(dict, '')
+    dict = mimic_dict(sys.argv[1])
+    print_mimic(dict, "")
 
 
-if __name__ == '__main__':
-  main()
+if __name__ == "__main__":
+    main()

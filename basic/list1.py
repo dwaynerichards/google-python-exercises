@@ -21,13 +21,10 @@
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
 def match_ends(words):
-    # +++your code here+++
-    # string leng > 1, first and lst char are same
     count = 0
-
     for word in words:
         last_index = len(word) - 1
-        if len(word >= 2) and word[0] == word[last_index]:
+        if len(word) >= 2 and word[0] == word[last_index]:
             count += 1
     return count
 
@@ -40,10 +37,13 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-    # +++your code here+++
-    # dtep through list, if string starts with x push into returned arr, remove from list
-    # else sort arr
-    return
+    xList = sorted([word for word in words if word[0] == "x"], key=afterX)
+    rList = sorted([word for word in words if word[0] != "x"])
+    return xList + rList
+
+
+def afterX(word):
+    return word[1:]
 
 
 def bubble_sort(arr):
@@ -73,7 +73,11 @@ def bubble_sort(arr):
 # Hint: use a custom key= function to extract the last element form each tuple.
 def sort_last(tuples):
     # +++your code here+++
-    return
+    return sorted(tuples, key=tuple_sort)
+
+
+def tuple_sort(tuple):
+    return tuple[-1]
 
 
 # Simple provided test() function used in main() to print
